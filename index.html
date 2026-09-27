@@ -52,7 +52,7 @@
   header{position:sticky;top:0;z-index:50;background:rgba(251,247,245,0.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(58,42,66,0.06);}
   nav{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;max-width:1160px;margin:0 auto;}
   .logo{display:flex;align-items:center;gap:10px;}
-  .logo img{height:42px;width:42px;object-fit:contain;transition:transform .3s ease;}
+  .logo img{height:42px;width:42px;object-fit:cover;border-radius:50%;transition:transform .3s ease;}
   .logo:hover img{transform:rotate(-8deg) scale(1.06);}
   .logo-text{font-family:var(--serif);font-weight:600;font-size:1.25rem;color:var(--plum);}
   .navlinks{display:flex;gap:28px;font-size:0.92rem;}
@@ -71,16 +71,8 @@
   }
 
   /* ---------- HERO ---------- */
-  .hero{position:relative;padding:0;overflow:hidden;background:var(--plum);}
-  .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, rgba(58,42,66,0.72) 0%, rgba(58,42,66,0.42) 45%, rgba(58,42,66,0.15) 100%);}
-  .hero-inner{position:relative;max-width:1160px;margin:0 auto;padding:120px 24px 130px;color:var(--white);}
-  .hero-inner .content{max-width:520px;}
-  .moon-badge{font-size:2.2rem;margin-bottom:16px;display:inline-block;animation:float 5s ease-in-out infinite;}
-  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.08;}
-  .hero .tagline{font-family:var(--serif);font-style:italic;color:#F3DEE1;font-size:1.15rem;margin:14px 0 20px;}
-  .hero p.desc{color:#E9DEEC;font-size:1.02rem;margin-bottom:32px;}
+  .hero{padding:0;line-height:0;}
+  .hero img{width:100%;height:auto;display:block;}
   .btn-row{display:flex;gap:16px;flex-wrap:wrap;}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:32px;font-size:0.95rem;font-weight:500;transition:transform .25s ease, box-shadow .25s ease, background .25s ease;cursor:pointer;border:none;}
   .btn-primary{background:var(--white);color:var(--plum);}
@@ -100,19 +92,35 @@
   .eyebrow{font-size:0.78rem;color:var(--rose);font-weight:500;margin-bottom:6px;display:inline-block;}
 
   /* ---------- CATEGORY FILTER ---------- */
-  .cat-strip{display:flex;gap:14px;overflow-x:auto;padding-bottom:8px;max-width:1160px;margin:0 auto 40px;scrollbar-width:none;}
-  .cat-strip::-webkit-scrollbar{display:none;}
-  .cat-chip{flex:0 0 auto;background:var(--white);border:1.5px solid rgba(58,42,66,0.1);padding:13px 24px;border-radius:16px;font-size:0.9rem;white-space:nowrap;cursor:pointer;transition:all .2s ease;}
-  .cat-chip:hover{border-color:var(--rose);transform:translateY(-2px);}
+  .cat-strip{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:0 auto 40px;background:var(--white);border-radius:18px;padding:14px;box-shadow:0 6px 18px -12px rgba(58,42,66,0.15);}
+  .cat-chip{width:100%;text-align:center;background:transparent;border:1.5px solid rgba(58,42,66,0.1);padding:13px 20px;border-radius:14px;font-size:0.9rem;cursor:pointer;transition:all .2s ease;}
+  .cat-chip:hover{border-color:var(--rose);}
   .cat-chip.active{background:var(--plum);color:var(--white);border-color:var(--plum);}
 
   /* ---------- PRODUCTS ---------- */
-  .products-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:28px;}
-  .product-card{position:relative;background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 18px -10px rgba(58,42,66,0.15);transition:transform .3s ease, box-shadow .3s ease;display:flex;flex-direction:column;}
+  .products-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  @media(min-width:640px){.products-grid{grid-template-columns:repeat(3,1fr);gap:22px;}}
+  .product-card{position:relative;background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 6px 18px -10px rgba(58,42,66,0.15);transition:transform .3s ease, box-shadow .3s ease;display:flex;flex-direction:column;}
   .product-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);}
-  .product-img{aspect-ratio:1/1;background:linear-gradient(135deg,var(--lavender-soft),var(--rose-soft));display:flex;align-items:center;justify-content:center;font-size:2.6rem;background-size:cover;background-position:center;overflow:hidden;}
+  .product-img{aspect-ratio:1/1;background:linear-gradient(135deg,var(--lavender-soft),var(--rose-soft));display:flex;align-items:center;justify-content:center;font-size:1.8rem;background-size:cover;background-position:center;overflow:hidden;}
   .product-img-inner{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s ease;}
   .product-card:hover .product-img-inner{transform:scale(1.08);}
+  @media(max-width:639px){
+    .product-body{padding:12px 12px 14px !important;gap:3px !important;}
+    .product-name{font-size:0.88rem !important;}
+    .product-desc{font-size:0.72rem !important;}
+    .product-price{font-size:0.92rem !important;}
+    .product-code{font-size:0.62rem !important;}
+    .order-btn{padding:8px !important;font-size:0.72rem !important;margin-top:8px !important;}
+    .new-badge{font-size:0.6rem !important;padding:3px 9px !important;top:8px !important;left:8px !important;}
+  }
+
+  /* product reveal: slide + fade, alternating direction */
+  .p-reveal{opacity:0;transition:opacity .6s ease, transform .6s ease;}
+  .p-reveal.left{transform:translateX(-36px);}
+  .p-reveal.right{transform:translateX(36px);}
+  .p-reveal.in{opacity:1;transform:translateX(0);}
+  @media (prefers-reduced-motion: reduce){.p-reveal{opacity:1;transform:none;transition:none;}}
   .new-badge{position:absolute;top:14px;left:14px;background:var(--rose);color:var(--white);font-size:0.7rem;padding:5px 12px;border-radius:20px;letter-spacing:.03em;z-index:2;}
   .product-body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:6px;flex:1;}
   .product-code{font-size:0.72rem;letter-spacing:0.03em;color:var(--rose);font-weight:500;}
@@ -174,7 +182,7 @@
   /* ---------- FOOTER ---------- */
   footer{padding:56px 24px 30px;}
   .footer-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;}
-  .footer-brand .logo img{height:38px;width:38px;}
+  .footer-brand .logo img{height:38px;width:38px;object-fit:cover;border-radius:50%;}
   .footer-brand p{color:var(--plum-soft);font-size:0.9rem;margin-top:10px;max-width:260px;}
   .footer-col h5{font-size:0.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--rose);margin-bottom:14px;}
   .footer-col a{display:block;color:var(--plum-soft);font-size:0.9rem;margin-bottom:10px;transition:color .2s;}
@@ -182,6 +190,19 @@
   .footer-bottom{max-width:1160px;margin:40px auto 0;padding-top:24px;border-top:1px solid rgba(58,42,66,0.08);font-size:0.82rem;color:var(--plum-soft);text-align:center;}
   @media(max-width:760px){.footer-inner{grid-template-columns:1fr 1fr;}}
   @media(max-width:480px){.footer-inner{grid-template-columns:1fr;}}
+
+  /* ---------- FLOATING Q MENU ---------- */
+  .float-q{position:fixed;bottom:26px;right:22px;z-index:80;}
+  .float-q-btn{background:none;border:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .float-q-btn img{width:58px;height:58px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(58,42,66,0.35));animation:zeroGravity 3.2s ease-in-out infinite;transition:transform .25s ease;}
+  .float-q-btn:active img{transform:scale(0.92);}
+  @keyframes zeroGravity{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-12px) rotate(4deg);}}
+  .float-menu{position:absolute;bottom:74px;right:0;background:var(--white);border-radius:16px;box-shadow:var(--shadow);padding:10px;min-width:180px;display:flex;flex-direction:column;gap:2px;opacity:0;transform:translateY(12px) scale(0.96);pointer-events:none;transition:opacity .22s ease, transform .22s ease;}
+  .float-menu.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+  .float-menu a, .float-menu span{display:block;padding:11px 14px;border-radius:10px;font-size:0.9rem;color:var(--plum);transition:background .2s;}
+  .float-menu a:hover{background:var(--lavender-soft);}
+  .float-menu .divider{height:1px;background:rgba(58,42,66,0.08);margin:6px 4px;padding:0;}
+  .float-menu .admin-item{color:var(--plum-soft);cursor:default;font-size:0.85rem;}
 </style>
 </head>
 <body>
@@ -203,20 +224,8 @@
 </header>
 
 <!-- HERO -->
-<section class="hero" id="home" style="padding:0;">
-  <div class="hero-bg" style="background-image:url('hero.jpg');"></div>
-  <div class="hero-inner">
-    <div class="content">
-      <span class="moon-badge">🌙</span>
-      <h1>QÃMÃRI FINDS</h1>
-      <div class="tagline">Simple Things • Better Finds</div>
-      <p class="desc">Discover simple, stylish and useful finds selected to make little moments a little more special.</p>
-      <div class="btn-row">
-        <a href="#shop" class="btn btn-primary">Shop Now →</a>
-        <a href="#contact" class="btn btn-outline">🌙 WhatsApp Us</a>
-      </div>
-    </div>
-  </div>
+<section class="hero" id="home">
+  <img src="hero.jpg" alt="QÃMÃRI FINDS — Simple Things, Better Finds">
 </section>
 
 <!-- SHOP / ALL PRODUCTS -->
@@ -418,6 +427,22 @@
   <div class="footer-bottom">© 2026 QÃMÃRI FINDS. All rights reserved.</div>
 </footer>
 
+<div class="float-q" id="floatQ">
+  <div class="float-menu" id="floatMenu">
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#new-arrivals">New Arrivals</a>
+    <a href="#about">About</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <div class="divider"></div>
+    <span class="admin-item">🔒 Admin Area</span>
+  </div>
+  <button class="float-q-btn" id="floatQBtn" aria-label="Menu">
+    <img src="qicon.png" alt="Menu">
+  </button>
+</div>
+
 <script>
 /* ============================================================
    SUPABASE SETUP
@@ -474,9 +499,10 @@ Thank you! 🌙`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-function productCard(p){
+function productCard(p, i){
+  const dir = i % 2 === 0 ? "left" : "right";
   return `
-    <div class="product-card" data-cat="${p.category || ''}">
+    <div class="product-card p-reveal ${dir}" data-cat="${p.category || ''}">
       ${p.is_new ? '<span class="new-badge">NEW</span>' : ''}
       <div class="product-img">
         <div class="product-img-inner" style="${p.image_url ? `background-image:url('${p.image_url}')` : ""}">
@@ -500,6 +526,7 @@ function renderGrid(elId, products, emptyMsg){
     return;
   }
   grid.innerHTML = products.map(productCard).join("");
+  grid.querySelectorAll(".p-reveal").forEach(el => productObserver.observe(el));
 }
 
 function filterShop(cat){
@@ -557,6 +584,16 @@ function setupAccordion(selector){
 setupAccordion(".faq-item");
 setupAccordion(".policy-item");
 
+/* Product card slide + fade reveal */
+const productObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add("in");
+      productObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
 /* Scroll reveal animation */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -567,6 +604,20 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+/* Floating Q menu toggle */
+const floatQBtn = document.getElementById("floatQBtn");
+const floatMenu = document.getElementById("floatMenu");
+floatQBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  floatMenu.classList.toggle("open");
+});
+floatMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => floatMenu.classList.remove("open")));
+document.addEventListener("click", (e) => {
+  if(!document.getElementById("floatQ").contains(e.target)){
+    floatMenu.classList.remove("open");
+  }
+});
 
 /* close mobile nav after clicking a link */
 document.querySelectorAll(".navlinks a").forEach(a => a.addEventListener("click", () => {
