@@ -522,8 +522,11 @@ async function enterApp(user) {
   const { data, error } = await sb.from("admin_users").select("user_id").eq("user_id", user.id).maybeSingle();
   if (error || !data) {
     await sb.auth.signOut();
-    const setup = error && /admin_users|schema cache|does not exist/i.test(error.message || "");
-    showLogin(setup ? "⚠️ Setup incomplete — run supabase-setup.sql first." : "⚠️ Invalid admin credentials.", "bad");
+    let m;
+    if (error && /admin_users|schema cache|does not exist/i.test(error.message || "")) m = "⚠️ Setup incomplete — run supabase-setup.sql first.";
+    else if (error) m = "⚠️ Could not verify admin: " + (error.message || "unknown error");
+    else m = "⚠️ Login OK, but this account is not added as admin yet. Run the admin_users insert SQL in Supabase.";
+    showLogin(m, "bad");
     return false;
   }
   state.user = user;
@@ -538,8 +541,9 @@ $("#loginForm").addEventListener("submit", async e => {
   const btn = $("#loginBtn"); btn.disabled = true; $("#loginMsg").textContent = ""; $("#loginMsg").className = "msg";
   const { data, error } = await sb.auth.signInWithPassword({ email: $("#lEmail").value.trim(), password: $("#lPass").value });
   if (error || !data.user) { showLogin("⚠️ Invalid admin credentials.", "bad"); return; }
-  const m = $("#loginMsg"); m.textContent = "Welcome back, Admin. 🌙"; m.className = "msg ok";
-  const ok = await enterApp(data.user); if (ok) $("#lPass").value = "";
+  const m = $("#loginMsg"); m.textContent = "Checking access…"; m.className = "msg ok";
+  const ok = await enterApp(data.user);
+  if (ok) { $("#lPass").value = ""; toast("Welcome back, Admin. 🌙"); }
 });
 async function logout() { await sb.auth.signOut(); showLogin(); location.hash = ""; }
 ["logoutSide", "logoutSet", "logoutMore"].forEach(id => $("#" + id).onclick = logout);
