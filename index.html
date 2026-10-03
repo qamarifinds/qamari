@@ -450,14 +450,14 @@
       <h2>Let's Connect 🌙</h2>
       <p>Have a question about a product? We're happy to help.</p>
       <a href="https://wa.me/919567525748" target="_blank" class="liquid-btn js-wa" id="liquidWaBtn">
-        <svg aria-hidden="true"><defs>
+        <svg aria-hidden="true" width="100%" height="100%" preserveAspectRatio="none"><defs>
           <filter id="lgoo"><feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b"/><feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"/></filter>
           <mask id="lbite"><rect x="0" y="0" width="100%" height="100%" fill="#fff"/><g id="lfollow" style="transform-box:fill-box;transform-origin:center;"><g id="lbitegroup" style="transform-box:fill-box;transform-origin:center;transform:scale(0);"><circle cx="50%" cy="50%" r="34" fill="#000"/></g></g></mask>
         </defs>
         <g filter="url(#lgoo)"><rect x="0" y="0" width="100%" height="100%" rx="40" ry="40" fill="#D7A6AD"/></g>
         <g filter="url(#lgoo)"><rect x="0" y="0" width="100%" height="100%" rx="40" ry="40" fill="#FBF7F5" mask="url(#lbite)"/></g>
         </svg>
-        <span>Chat on WhatsApp</span>
+        <span>WhatsApp — <span class="js-wa-num">+91 95675 25748</span></span>
       </a>
     </div>
     <div class="contact-links">
@@ -698,7 +698,7 @@ function applySettings(s) {
   }
   if (s.instagram_url) {
     document.querySelectorAll(".js-ig").forEach(a => a.href = s.instagram_url);
-    const uname = s.instagram_url.replace(/\/$/, "").split("/").pop();
+    const uname = s.instagram_url.split("?")[0].replace(/\/$/, "").split("/").pop();
     if (uname) document.querySelectorAll(".js-ig-user").forEach(x => x.textContent = "@" + uname);
   }
   if (s.facebook_url) document.querySelectorAll(".js-fb").forEach(a => a.href = s.facebook_url);
