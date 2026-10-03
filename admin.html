@@ -402,6 +402,7 @@ body.in-form .bottom-nav{display:none!important;}
             <div class="fld"><label>Logo (optional)</label><input class="inp" id="sLogo" type="file" accept="image/*"></div>
             <div class="fld"><label>Instagram URL</label><input class="inp" id="sIg"></div>
             <div class="fld"><label>Facebook URL</label><input class="inp" id="sFb"></div>
+            <div class="fld"><label>Support email</label><input class="inp" id="sEmailSetting" type="email" placeholder="qamarifinds.store@gmail.com"></div>
             <div class="fld"><label>Default delivery information</label><input class="inp" id="sDel"></div>
             <div class="fld"><label>Default dispatch information</label><input class="inp" id="sDis"></div>
           </div>
@@ -943,7 +944,7 @@ $("#mediaGrid").addEventListener("click", async e => {
 function renderSettings() {
   const s = state.settings;
   $("#sName").value = s.store_name || "QÃMÃRI FINDS"; $("#sWa").value = s.whatsapp_number ? "+" + s.whatsapp_number : "";
-  $("#sIg").value = s.instagram_url || ""; $("#sFb").value = s.facebook_url || ""; $("#sDel").value = s.delivery_info || ""; $("#sDis").value = s.dispatch_info || "";
+  $("#sIg").value = s.instagram_url || ""; $("#sFb").value = s.facebook_url || ""; $("#sEmailSetting").value = s.email || ""; $("#sDel").value = s.delivery_info || ""; $("#sDis").value = s.dispatch_info || "";
 }
 $("#saveSettings").onclick = async () => {
   let wa = $("#sWa").value.replace(/\D/g, ""); if (wa.length === 10) wa = "91" + wa;
@@ -951,7 +952,7 @@ $("#saveSettings").onclick = async () => {
   $("#saveSettings").disabled = true;
   try {
     const row = { id: 1, store_name: $("#sName").value.trim(), whatsapp_number: wa, instagram_url: $("#sIg").value.trim(), facebook_url: $("#sFb").value.trim(),
-      currency: "INR", delivery_info: $("#sDel").value.trim(), dispatch_info: $("#sDis").value.trim(), updated_at: new Date().toISOString() };
+      email: $("#sEmailSetting").value.trim(), currency: "INR", delivery_info: $("#sDel").value.trim(), dispatch_info: $("#sDis").value.trim(), updated_at: new Date().toISOString() };
     const f = $("#sLogo").files[0]; if (f) row.logo_url = (await uploadImage(f, "branding")).url;
     const { error } = await sb.from("site_settings").upsert(row); if (error) throw error;
     await refreshAll(); renderSettings(); toast("Settings saved");
